@@ -7,7 +7,7 @@ for the generation of evolving artificial neural networks developed by Ken Stanl
 
 ## Demo
 
-![alt text](https://github.com/caiovini/bomberman/blob/master/demo.gif)
+![alt text](https://github.com/caiovini/Neat-racing/blob/main/Demo.gif)
 
 ## Requirement
 
@@ -15,12 +15,12 @@ python 3.8
 
 ## Instructions
 
-install requirements: pip3 install -r requirements<br/>
-run: python3 game.py
+install requirements: "pip3 install -r requirements"<br/>
+                 run: "python3 game.py"
 
 ## Resources 
 
-assets for this game can be found at:<br/>
+Assets for this game can be found at:<br/>
 
 https://brad-gilbertson.itch.io/16bit-race-car-set<br/>
 https://free-game-assets.itch.io/free-race-track-tile-set
