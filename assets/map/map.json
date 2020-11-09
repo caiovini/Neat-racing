@@ -1,0 +1,213 @@
+{
+    "map" : 
+    [
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 600      ,
+            "positionY": 600      ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 475      ,
+            "positionY": 600      ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 350      ,
+            "positionY": 600      ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 225      ,
+            "positionY": 600      ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_01" , 
+            "positionX": 115      ,
+            "positionY": 600      ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 115      ,
+            "positionY": 500      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 115      ,
+            "positionY": 375      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 115      ,
+            "positionY": 250      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 115      ,
+            "positionY": 125      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_01" , 
+            "positionX": 115      ,
+            "positionY": 7        ,
+            "angle":-90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 225      ,
+            "positionY": 7        ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 350      ,
+            "positionY": 7        ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 475      ,
+            "positionY": 7        ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 600      ,
+            "positionY": 7        ,
+            "angle":0
+        },
+        {
+            "tile" : "Road_02_02" , 
+            "positionX": 715      ,
+            "positionY": 7        ,
+            "angle":-90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 715      ,
+            "positionY": 125      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 715      ,
+            "positionY": 250      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 715      ,
+            "positionY": 375      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_03" , 
+            "positionX": 715      ,
+            "positionY": 500      ,
+            "angle":90
+        },
+        {
+            "tile" : "Road_02_01" , 
+            "positionX": 715      ,
+            "positionY": 600      ,
+            "angle":90
+        }
+    ],
+
+    "collisions":[
+
+        {
+            "positionX": 120,
+            "positionY": 20,
+            "width": 5,
+            "height":700
+
+        },
+        {
+            "positionX": 830,
+            "positionY": 20,
+            "width": 5,
+            "height":700
+
+        },
+        {
+            "positionX": 230,
+            "positionY": 130,
+            "width": 5,
+            "height":475
+
+        },
+        {
+            "positionX": 720,
+            "positionY": 130,
+            "width": 5,
+            "height":475
+
+        },
+        {
+            "positionX": 230,
+            "positionY": 130,
+            "width": 490,
+            "height":5
+
+        },
+        {
+            "positionX": 230,
+            "positionY": 600,
+            "width": 490,
+            "height":5
+
+        },
+        {
+            "positionX": 120,
+            "positionY": 720,
+            "width": 715,
+            "height":5
+
+        },
+        {
+            "positionX": 120,
+            "positionY": 15 ,
+            "width": 715,
+            "height":5
+
+        },
+        {
+            "positionX": 130,
+            "positionY": 25,
+            "width": 30,
+            "height":30
+
+        },
+        {
+            "positionX": 795,
+            "positionY": 25,
+            "width": 30,
+            "height":30
+
+        },
+        {
+            "positionX": 795,
+            "positionY": 685,
+            "width": 30,
+            "height":30
+
+        },
+        {
+            "positionX": 130,
+            "positionY": 685,
+            "width": 30,
+            "height":30
+
+        }
+    ]
+}
