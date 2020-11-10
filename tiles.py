@@ -4,13 +4,13 @@ import json
 from os.path import join 
 from concurrent.futures import ThreadPoolExecutor
 
-background__tile_size = 100
+background_tile_size  = 100
 road_size             = 125
 SCREEN_WIDTH          = 1000
 SCREEN_HEIGHT         = 800
 
 
-class Tile(pg.sprite.Sprite):
+class Tile(pg.sprite.Sprite): # Load main tile class
 
     def __init__(self , image):
         pg.sprite.Sprite.__init__(self)
@@ -23,7 +23,8 @@ class Tile(pg.sprite.Sprite):
 
     def rotate(self, angle):
         """
-        rotate image while keeping its center and size
+        Rotate image while keeping its center and size
+        Defining which way the tiles for the track would be in angles
     
         """
         orig_rect = self.image.get_rect()
@@ -37,7 +38,7 @@ class Soil(Tile):
 
     def __init__(self):
         path_soil       = join("assets" , "Race-Track-Tile-Set-PNG" , "PNG" , "Background_Tiles")
-        Tile.__init__(self ,  pg.transform.scale( pg.image.load( join(path_soil , "Soil_Tile.png")) , (background__tile_size , background__tile_size)))
+        Tile.__init__(self ,  pg.transform.scale( pg.image.load( join(path_soil , "Soil_Tile.png")) , (background_tile_size , background_tile_size)))
 
 class Road_02_01(Tile):
 
@@ -109,8 +110,8 @@ def load_map(map_number):
     collisions = []
     path_map = join("assets" , "map")
 
-    columns = int(SCREEN_WIDTH / background__tile_size)
-    lines = int(SCREEN_HEIGHT / background__tile_size)
+    columns = int(SCREEN_WIDTH / background_tile_size)
+    lines = int(SCREEN_HEIGHT / background_tile_size)
 
 
     def load_background():
@@ -120,12 +121,21 @@ def load_map(map_number):
         for y in range(lines):
             for x in range(columns):
                 soil = Soil()
-                soil.update(x * background__tile_size , y * background__tile_size)
+                soil.update(x * background_tile_size , y * background_tile_size)
                 tls.append(soil)
 
         return tls
 
     def load_racing_map(race_tiles):
+        """
+            The map coordinates are defined in a json file
+            For each value in the file we find:
+            tile      : which tile should be drawn
+            positionX : x position of the tile
+            positionY : y position of the tile
+            angle:    : angle to be drawn
+
+        """
         tls = []
         for tile in race_tiles:
             tile_map = _switch(tile["tile"])
@@ -136,6 +146,17 @@ def load_map(map_number):
         return tls
 
     def load_collisions(race_colissions):
+        """
+            The collision coordinates are also defined in a json file
+            For each value in the file we find:
+            width     : width of the collision
+            height    : height of the collision
+            positionX : x position of the collision
+            positionY : y position of the collision
+
+            The collision are defined to control the borders of the racing map
+
+        """
         cols = []
         for collision in race_colissions:
             collision_rect = pg.Rect(collision["positionX"] , collision["positionY"] ,
@@ -145,14 +166,16 @@ def load_map(map_number):
 
         return cols
 
-    with open(join(path_map , map_number), "r") as myfile:
+    with open(join(path_map , map_number), "r") as myfile: # Open json file
         data = myfile.read()
         obj  = json.loads(data)
-        with ThreadPoolExecutor(max_workers = 3) as executor:
+        with ThreadPoolExecutor(max_workers = 3) as executor: # Load background , map and collisions on different threads
             bk_tiles = executor.submit(load_background)  
             rc_tiles = executor.submit(load_racing_map , obj["map"])   
             co_tiles = executor.submit(load_collisions , obj["collisions"]) 
 
+
+            # Add result of the threads to lists
             tiles.extend(bk_tiles.result())
             tiles.extend(rc_tiles.result())
             collisions.extend(co_tiles.result())  

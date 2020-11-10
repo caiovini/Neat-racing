@@ -12,15 +12,17 @@ race_map           = "map.json"
 config_file_path   = "config-feedforward.txt"
 tiles , collisions = load_map(race_map)
 clock              = pg.time.Clock()
+screen             = pg.display.set_mode((SCREEN_WIDTH , SCREEN_HEIGHT))
 
-def train(genomes , config):
-    pg.init
-    screen = pg.display.set_mode((SCREEN_WIDTH , SCREEN_HEIGHT))
+def train(genomes , config):    
     nets  , cars = [] , []
     rotate_car_angle = 0
 
-    #carTest = Car()
-    #carTest.update(200 , 35)
+    """ 
+        Initialize all nets and cars 
+        Build radars for the cars so neat would be able to know collisions' distance
+        Update the position of the cars on the map 
+    """
     
     for id , gen in genomes:
         net = neat.nn.FeedForwardNetwork.create(gen, config)
@@ -32,6 +34,7 @@ def train(genomes , config):
         cars.append(car)
         gen.fitness = 0.0    
     
+
     def build_map():  
         for tile in tiles:
             if tile:
@@ -54,7 +57,7 @@ def train(genomes , config):
             
             if event.type == pg.KEYDOWN:
 
-                if event.key == pg.K_ESCAPE:
+                if event.key == pg.K_ESCAPE: # Exit on escape key pressed
                     cars.clear()
                     pg.quit()
                     sys.exit(0)
@@ -85,10 +88,10 @@ def train(genomes , config):
                 
                 gen.fitness = car.distance / 100
             
-            screen.blit(car.rotate_image , car.rect)  
+            screen.blit(car.rotate_image , car.rect)  # Draw cars even if it is not alive anymore
         
         pg.display.flip()
-        clock.tick(60)    
+        clock.tick(60)  # 60 FPS
 
         if not remainders:
             done = True
@@ -107,6 +110,9 @@ def run_training():
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
+
+    #Init pygame
+    pg.init
 
     # Run NEAT
     winner = p.run(train)
