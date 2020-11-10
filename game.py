@@ -112,7 +112,7 @@ def run_training():
     p.add_reporter(stats)
 
     #Init pygame
-    pg.init
+    pg.init()
 
     # Run NEAT
     winner = p.run(train)
