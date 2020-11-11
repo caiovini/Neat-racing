@@ -110,8 +110,8 @@ def load_map(map_number):
     collisions = []
     path_map = join("assets" , "map")
 
-    columns = int(SCREEN_WIDTH / background_tile_size)
-    lines = int(SCREEN_HEIGHT / background_tile_size)
+    columns = SCREEN_WIDTH // background_tile_size
+    lines = SCREEN_HEIGHT // background_tile_size
 
 
     def load_background():
