@@ -24,7 +24,7 @@ def train(genomes , config):
         Update the position of the cars on the map 
     """
     
-    for id , gen in genomes:
+    for _ , gen in genomes:
         net = neat.nn.FeedForwardNetwork.create(gen, config)
         car = Car()
         car.update(380 , 45) #Initial position
@@ -63,7 +63,7 @@ def train(genomes , config):
                     sys.exit(0)
 
         remainders = 0
-        for (id , gen) , net , car in zip(genomes , nets , cars):
+        for ( _ , gen) , net , car in zip(genomes , nets , cars):
             
             if car.isAlive:
                 remainders += 1
