@@ -3,19 +3,20 @@ import neat
 import sys
 import pickle
 
-from tiles import load_map , SCREEN_WIDTH , SCREEN_HEIGHT
+from tiles import load_map, SCREEN_WIDTH, SCREEN_HEIGHT
 from car import Car
 
 WHITE = pg.Color(255, 255, 255)
 
-race_map           = "map.json"
-config_file_path   = "config-feedforward.txt"
-tiles , collisions = load_map(race_map)
-clock              = pg.time.Clock()
-screen             = pg.display.set_mode((SCREEN_WIDTH , SCREEN_HEIGHT))
+race_map = "map.json"
+config_file_path = "config-feedforward.txt"
+tiles, collisions = load_map(race_map)
+clock = pg.time.Clock()
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-def train(genomes , config):    
-    nets  , cars = [] , []
+
+def train(genomes, config):
+    nets, cars = [], []
     rotate_car_angle = 0
 
     """ 
@@ -23,27 +24,26 @@ def train(genomes , config):
         Build radars for the cars so neat would be able to know collisions' distance
         Update the position of the cars on the map 
     """
-    
-    for _ , gen in genomes:
+
+    for _, gen in genomes:
         net = neat.nn.FeedForwardNetwork.create(gen, config)
         car = Car()
-        car.update(380 , 45) #Initial position
-        car.build_radars(collisions , rotate_car_angle )
-        
+        car.update(380, 45)  # Initial position
+        car.build_radars(collisions, rotate_car_angle)
+
         nets.append(net)
         cars.append(car)
-        gen.fitness = 0.0    
-    
+        gen.fitness = 0.0
 
-    def build_map():  
+    def build_map():
         for tile in tiles:
             if tile:
-                screen.blit(tile.image , tile.rect)            
-    
+                screen.blit(tile.image, tile.rect)
+
     done = False
     while not done:
         build_map()
-        #screen.blit(carTest.rotate_image , carTest.rect)  
+        #screen.blit(carTest.rotate_image , carTest.rect)
         #carTest.build_radars(collisions , rotate_car_angle , screen)
 
         if (rotate_car_angle == 360 or rotate_car_angle == -360):
@@ -54,17 +54,17 @@ def train(genomes , config):
                 cars.clear()
                 pg.quit()
                 sys.exit(0)
-            
+
             if event.type == pg.KEYDOWN:
 
-                if event.key == pg.K_ESCAPE: # Exit on escape key pressed
+                if event.key == pg.K_ESCAPE:  # Exit on escape key pressed
                     cars.clear()
                     pg.quit()
                     sys.exit(0)
 
         remainders = 0
-        for ( _ , gen) , net , car in zip(genomes , nets , cars):
-            
+        for (_, gen), net, car in zip(genomes, nets, cars):
+
             if car.isAlive:
                 remainders += 1
                 output = net.activate(car.radars)
@@ -72,31 +72,31 @@ def train(genomes , config):
 
                 if(ind == 0):
                     rotate_car_angle -= 1
-                    car.rotate(rotate_car_angle) 
+                    car.rotate(rotate_car_angle)
 
                 else:
                     rotate_car_angle += 1
                     car.rotate(rotate_car_angle)
-                
 
-                car.calculate_new_xy( 10 , rotate_car_angle)
-                car.build_radars(collisions , rotate_car_angle )                
+                car.calculate_new_xy(10, rotate_car_angle)
+                car.build_radars(collisions, rotate_car_angle)
 
                 if car.is_colliding(collisions):
                     car.isAlive = False
-                    continue       
-                
+                    continue
+
                 gen.fitness = car.distance / 100
-            
-            screen.blit(car.rotate_image , car.rect)  # Draw cars even if it is not alive anymore
-        
+
+            # Draw cars even if it is not alive anymore
+            screen.blit(car.rotate_image, car.rect)
+
         pg.display.flip()
         clock.tick(60)  # 60 FPS
 
         if not remainders:
             done = True
 
-        
+
 def run_training():
     # Set configuration file
     config_path = config_file_path
@@ -124,8 +124,5 @@ def run_training():
         pickle.dump(winner, file)
 
 
-
 if __name__ == "__main__":
     run_training()
-       
-
