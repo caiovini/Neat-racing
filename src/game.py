@@ -3,8 +3,8 @@ import neat
 import sys
 import pickle
 
-from tiles import load_map, SCREEN_WIDTH, SCREEN_HEIGHT
-from car import Car
+from tiles.tiles import load_map, SCREEN_WIDTH, SCREEN_HEIGHT
+from car.car import Car
 
 WHITE = pg.Color(255, 255, 255)
 
